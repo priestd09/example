@@ -1,8 +1,8 @@
 # Example
 
-Example is an example app.
+Example is a Go cmd line app to be used as a starter for new projects.
 
-We appreciate your contribution. Please refer to our [contributing guidelines](CONTRIBUTING.md).
+Based off of [caarlos0/example](https://github.com/caarlos0/example).
 
 [![Release](https://img.shields.io/github/release/markphelps/example.svg?style=flat-square)](https://github.com/markphelps/example/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
