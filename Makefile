@@ -1,17 +1,12 @@
-SOURCE_FILES?=$$(go list ./... | grep -v /vendor/)
-TEST_PATTERN?=.
-TEST_OPTIONS?=-race
-
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
 	go get -u github.com/alecthomas/gometalinter
-	go get -u github.com/pierrre/gotestcover
 	go get -u golang.org/x/tools/cmd/cover
 	gometalinter --install --update
 
 .PHONY: test
 test: ## Run all the tests
-	gotestcover $(TEST_OPTIONS) -covermode=atomic -coverprofile=coverage.txt $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=30s
+	echo 'mode: atomic' > coverage.txt && go list ./... | grep -v /vendor/ | xargs -n1 -I{} sh -c 'go test -covermode=atomic -coverprofile=coverage.txt -v -race -timeout=30s {}'
 
 .PHONY: cover
 cover: test ## Run all the tests and opens the coverage report
