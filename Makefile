@@ -1,8 +1,16 @@
+project = example
+
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
+	go get -u github.com/golang/dep/cmd/dep
 	go get -u github.com/alecthomas/gometalinter
 	go get -u golang.org/x/tools/cmd/cover
 	gometalinter --install --update
+
+.PHONY: dep
+dep: ## Vendor all dependencies
+	dep ensure
+	dep prune
 
 .PHONY: test
 test: ## Run all the tests
@@ -37,8 +45,8 @@ lint: ## Run all the linters
 ci: lint test ## Run all the tests and code checks
 
 .PHONY: build
-build: ## Build a beta version
-	go build -o ./bin/example ./cmd/example/main.go
+build: ## Run go build
+	go build -o ./bin/$(project) ./cmd/$(project)/main.go
 
 .PHONY: install
 install: ## Install to $GOPATH/src
